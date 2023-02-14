@@ -1,26 +1,26 @@
 # Edgee Tracking Tool
 
-### Installation
+## Installation
 
-```
-  yarn add edgee-tracking
-```
-
-```
-  npm install edgee-tracking
+```sh
+yarn add edgee-tracking
 ```
 
-```
-  <script
-    type="text/javascript"
-    src="https://unpkg.com/edgee-tracking@1.0.3/lib/index.min.js"
-  ></script>
-  <script type="text/javascript">
-    edgee_tracking.init();
-  </script>
+```sh
+npm install edgee-tracking
 ```
 
-### Usage
+```html
+<script
+  type="text/javascript"
+  src="https://unpkg.com/edgee-tracking@1.0.3/lib/index.min.js"
+></script>
+<script type="text/javascript">
+  edgee_tracking.init();
+</script>
+```
+
+## Usage
 
 ```js
 import EdgeeTracking from "edgee-tracking";
