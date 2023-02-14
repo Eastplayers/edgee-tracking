@@ -7,6 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c",
+    "build:tsc": "tsc",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
     "prepare": "yarn build",
@@ -22,8 +23,10 @@
   "devDependencies": {
     "@babel/core": "^7.20.12",
     "@babel/preset-env": "^7.20.2",
+    "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-typescript": "^11.0.0",
     "eslint": "^8.34.0",
+    "fs": "^0.0.1-security",
     "prettier": "^2.8.4",
     "rollup": "^3.15.0",
     "rollup-plugin-babel": "^4.4.0",
@@ -37,8 +40,10 @@
     "lib/**/*"
   ],
   "dependencies": {
+    "axios": "1.1.0",
     "react": "^18.2.0",
     "react-device-detect": "^2.2.3"
   },
-  "type": "module"
+  "type": "module",
+  "moduleResolution": "node"
 }
