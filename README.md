@@ -13,7 +13,7 @@ npm install edgee-tracking
 ```html
 <script
   type="text/javascript"
-  src="https://unpkg.com/edgee-tracking@1.0.3/lib/index.min.js"
+  src="https://unpkg.com/edgee-tracking/lib/index.min.js"
 ></script>
 <script type="text/javascript">
   edgee_tracking.init();
