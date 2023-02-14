@@ -28,6 +28,10 @@ import EdgeeTracking from "edgee-tracking";
 EdgeeTracking.init();
 ```
 
+## License
+
+Copyright © 2022 Eastplayers
+
 ## Contributing
 
 See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
