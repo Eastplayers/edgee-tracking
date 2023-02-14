@@ -1,8 +1,8 @@
-import { browserName } from 'react-device-detect';
+// import { browserName } from 'react-device-detect';
 
 const init = () => {
   const currentUrl = window.location.host + window.location.pathname
-  console.log(currentUrl, browserName)
+  console.log(currentUrl)
 }
 
 const EdgeeTracking = {
