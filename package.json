@@ -1,6 +1,6 @@
 {
   "name": "edgee-tracking",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "Edgee Tracking Tool",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -18,8 +18,13 @@
     "Edgee",
     "Tracking"
   ],
-  "author": "Quyen Le",
+  "author": "Eastplayers <hello@eastplayers.io> (https://github.com/Eastplayers)",
   "license": "ISC",
+  "repository": "https://github.com/Eastplayers/edgee-tracking",
+  "bugs": {
+    "url": "https://github.com/Eastplayers/edgee-tracking/issues"
+  },
+  "homepage": "https://github.com/Eastplayers/edgee-tracking#readme",
   "devDependencies": {
     "@babel/core": "^7.20.12",
     "@babel/preset-env": "^7.20.2",
