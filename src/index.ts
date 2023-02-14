@@ -1,1 +1,12 @@
-export const Greeter = (name: string) => `Hello ${name}`
+import { browserName } from 'react-device-detect';
+
+const init = () => {
+  const currentUrl = window.location.host + window.location.pathname
+  console.log(currentUrl, browserName)
+}
+
+const EdgeeTracking = {
+  init
+}
+
+export default EdgeeTracking
