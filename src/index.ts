@@ -25,6 +25,7 @@ const init = () => {
             geolocation: rest,
             ad_blocked: false,
             origin: window.location.origin,
+            event: "page_view",
           },
           timestamp: new Date().toISOString(),
         };
@@ -51,6 +52,7 @@ const init = () => {
             geolocation: null,
             ad_blocked: true,
             origin: window.location.origin,
+            event: "page_view",
           },
           timestamp: new Date().toISOString(),
         };
