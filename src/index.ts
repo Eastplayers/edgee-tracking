@@ -32,6 +32,7 @@ const init = () => {
           method: "POST",
           headers: {
             accept: "application/json",
+            "content-type": "application/json",
           },
           body: JSON.stringify(data),
         });
@@ -57,6 +58,7 @@ const init = () => {
           method: "POST",
           headers: {
             accept: "application/json",
+            "content-type": "application/json",
           },
           body: JSON.stringify(data),
         });
