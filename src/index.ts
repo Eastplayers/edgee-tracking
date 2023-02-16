@@ -1,6 +1,6 @@
 import { browserName, deviceDetect } from "react-device-detect";
 
-const init = () => {
+const sendPageViewEvent = () => {
   if (typeof window !== "undefined") {
     const deviceData = deviceDetect(undefined);
 
@@ -65,6 +65,28 @@ const init = () => {
           body: JSON.stringify(data),
         });
       });
+  }
+};
+
+const init = () => {
+  if (typeof window !== "undefined") {
+    sendPageViewEvent();
+
+    ["pushState"].forEach((changeState) => {
+      // @ts-ignore
+      window.history["_" + changeState] = window.history[changeState];
+      // @ts-ignore
+      window.history[changeState] = new Proxy(window.history[changeState], {
+        apply(target, thisArg, argList) {
+          const [state, title, url] = argList;
+          if (window.location.origin !== window.location.origin + url) {
+            sendPageViewEvent();
+          }
+
+          return target.apply(thisArg, argList);
+        },
+      });
+    });
   }
 };
 

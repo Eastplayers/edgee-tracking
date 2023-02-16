@@ -1,6 +1,6 @@
 {
   "name": "edgee-tracking",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Edgee Tracking Tool",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -49,7 +49,8 @@
     "@rollup/plugin-replace": "^5.0.2",
     "axios": "1.1.0",
     "react": "^18.2.0",
-    "react-device-detect": "^2.2.3"
+    "react-device-detect": "^2.2.3",
+    "url-change-event": "^0.1.6"
   },
   "type": "module",
   "moduleResolution": "node"

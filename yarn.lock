@@ -2266,6 +2266,11 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
+url-change-event@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/url-change-event/-/url-change-event-0.1.6.tgz#ff4e5bb9d32f1546c7ecf29427bc2073b4090b2d"
+  integrity sha512-7WcaK65FrD1ySwZ+IUnPw32qg+ycyyn3v3wR6sXeyHXgugEOmbAQJmxn8XqmuMZWE10i83srNpnXIJ2+6O9WrQ==
+
 which@^2.0.1:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/which/-/which-2.0.2.tgz#7c6a8dd0a636a0327e10b59c9286eee93f3f51b1"
