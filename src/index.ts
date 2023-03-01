@@ -1,5 +1,6 @@
 import { browserName, deviceDetect } from "react-device-detect";
 
+const SOCKET_URL = "https://api-cdp-staging.edgee.io";
 const URL = "https://api-cdp-staging.edgee.io/api/v1/events";
 const LOCATION_URL = "https://geolocation-db.com/json";
 
@@ -38,7 +39,7 @@ const sendEvent = (eventName = "page_view", eventPayload?: any) => {
         geolocation: null,
         ad_blocked: true,
         origin: window.location.origin,
-        event: eventName,
+        event_code: eventName,
         event_data: eventPayload,
       },
       timestamp: new Date().toISOString(),
@@ -86,6 +87,48 @@ const sendEvent = (eventName = "page_view", eventPayload?: any) => {
 
 const init = () => {
   if (typeof window !== "undefined") {
+    const toastCss = document.createElement("link");
+    toastCss.href =
+      "https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css";
+    toastCss.rel = "stylesheet";
+    toastCss.type = "text/css";
+    const toastScript = document.createElement("script");
+    toastScript.src = "https://cdn.jsdelivr.net/npm/toastify-js";
+    const socketScript = document.createElement("script");
+    socketScript.src =
+      "https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js";
+
+    socketScript.onload = () => {
+      // @ts-ignore
+      const socket = io(SOCKET_URL);
+
+      socket.on("ABANDONED_CART_CREATE", (data: any) => {
+        console.log("ABANDONED_CART_CREATE", data.content);
+        // @ts-ignore
+        Toastify({
+          text: data.content,
+          duration: 10000,
+          // destination: "https://github.com/apvarun/toastify-js",
+          // newWindow: true,
+          // close: true,
+          gravity: "bottom",
+          position: "left",
+          stopOnFocus: true, // Prevents dismissing of toast on hover
+          style: {
+            background: "white",
+            color: "black",
+            "max-width": "400px",
+            "font-size": "20px",
+          },
+          onClick: function () {}, // Callback after click
+        }).showToast();
+      });
+    };
+
+    document.body.appendChild(socketScript);
+    document.body.appendChild(toastScript);
+    document.head.appendChild(toastCss);
+
     sendEvent();
 
     ["pushState"].forEach((changeState) => {
@@ -106,7 +149,7 @@ const init = () => {
   }
 };
 
-const logEvent = (name: string, payload: Record<string, any>) => {
+const logEvent = (name: string, payload: Record<string, any> = {}) => {
   sendEvent(name, payload);
 };
 

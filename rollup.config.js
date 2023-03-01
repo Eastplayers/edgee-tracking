@@ -52,6 +52,30 @@ export default [
     ],
   },
   // {
+  //   input: "src/socket.js",
+
+  //   output: {
+  //     name: "edgee_tracking_socket",
+  //     file: "lib/socket.min.js",
+  //     format: "iife",
+  //     extend: true,
+  //   },
+  //   plugins: [
+  //     replace({
+  //       preventAssignment: true,
+  //       "process.env.NODE_ENV": JSON.stringify("production"),
+  //     }),
+  //     json(),
+  //     typescript(),
+  //     resolve(),
+  //     commonjs(),
+  //     babel({
+  //       exclude: ["node_modules/**"],
+  //     }),
+  //     terser(),
+  //   ],
+  // },
+  // {
   //   input: "src/index.ts",
 
   //   output: [
