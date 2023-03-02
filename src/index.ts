@@ -4,6 +4,8 @@ import "./styles.css";
 const SOCKET_URL = "https://api-cdp-staging.edgee.io";
 const URL = "https://api-cdp-staging.edgee.io/api/v1/events";
 const LOCATION_URL = "https://geolocation-db.com/json";
+const RECOMMEND_PRODUCTS_URL =
+  "https://api-cdp-staging.edgee.io/api/v1/items/recommend-products";
 
 const setCookie = (name: string, value: string) => {
   var expires = "";
@@ -170,20 +172,39 @@ const logEvent = (name: string, payload: Record<string, any> = {}) => {
 };
 
 const renderRecommendedProducts = () => {
-  const el = document.getElementById("product");
-  const productEl = document.createElement("div");
-  productEl.innerHTML = "Hello";
-  el?.append(productEl);
-  // fetch(LOCATION_URL, {
-  //   method: "GET",
-  //   headers: {
-  //     accept: "application/json",
-  //   },
-  // })
-  //   .then((res) => res.json())
-  //   .then((res) => {
-  //     // Dungf id de lay element
-  //   });
+  const el = document.getElementById("RECOMMENDED_PRODUCT");
+  const productWrapper = document.createElement("div");
+  const title = document.createElement("h3");
+  title.innerText = "Recommended Products";
+
+  el?.append(title);
+
+  fetch(`${RECOMMEND_PRODUCTS_URL}?master_id=123`, {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      console.log(res);
+      res?.data?.forEach((product: any) => {
+        const productEl = document.createElement("div");
+        productEl.innerHTML = `
+          <img class="product-image" src="${product?.image}"/>
+          <p class="product-name">${product?.name}</p>
+          <div style="display:flex; justify-content:space-between; align-items: center">
+              <div class="product-price"><p>$${product?.price}</p></div>
+              <div class="product-sold"><p>Sold: </p><p>${product?.sold}</p></div>
+          </div>
+        `;
+        productEl.className = "product-element";
+        productWrapper?.append(productEl);
+        productWrapper.className = "product-wrapper";
+      });
+
+      el?.append(productWrapper);
+    });
 };
 
 const EdgeeTracking = {
