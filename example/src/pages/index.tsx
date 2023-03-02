@@ -1,11 +1,15 @@
 import { message } from "antd";
 import { useRouter } from "next/router";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import EdgeeTracking from "../../../lib";
 import styles from "../styles/Home.module.css";
 
 const Home: FC = () => {
   const router = useRouter();
+
+  useEffect(() => {
+    EdgeeTracking.renderRecommendedProducts();
+  }, []);
 
   return (
     <div>
@@ -21,6 +25,8 @@ const Home: FC = () => {
       >
         Click to send ABANDONED_CART_CREATE event
       </button>
+
+      <div id="product"></div>
     </div>
   );
 };

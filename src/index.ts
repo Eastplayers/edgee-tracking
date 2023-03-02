@@ -168,9 +168,27 @@ const logEvent = (name: string, payload: Record<string, any> = {}) => {
   sendEvent(name, payload);
 };
 
+const renderRecommendedProducts = () => {
+  const el = document.getElementById("product");
+  const productEl = document.createElement("div");
+  productEl.innerHTML = "Hello";
+  el?.append(productEl);
+  // fetch(LOCATION_URL, {
+  //   method: "GET",
+  //   headers: {
+  //     accept: "application/json",
+  //   },
+  // })
+  //   .then((res) => res.json())
+  //   .then((res) => {
+  //     // Dungf id de lay element
+  //   });
+};
+
 const EdgeeTracking = {
   init,
   logEvent,
+  renderRecommendedProducts,
 };
 
 export default EdgeeTracking;
