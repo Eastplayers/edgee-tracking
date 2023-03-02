@@ -6,6 +6,7 @@ import json from "@rollup/plugin-json";
 import replace from "@rollup/plugin-replace";
 import terser from "@rollup/plugin-terser";
 import pkg from "./package.json" assert { type: "json" };
+import css from "rollup-plugin-import-css";
 
 export default [
   {
@@ -25,6 +26,7 @@ export default [
         exclude: ["node_modules/**"],
       }),
       terser(),
+      css({ minify: true }),
     ],
   },
   {
@@ -49,6 +51,7 @@ export default [
         exclude: ["node_modules/**"],
       }),
       terser(),
+      css({ minify: true }),
     ],
   },
   // {

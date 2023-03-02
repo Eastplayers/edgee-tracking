@@ -1,4 +1,5 @@
 import { browserName, deviceDetect } from "react-device-detect";
+import "./styles.css";
 
 const SOCKET_URL = "https://api-cdp-staging.edgee.io";
 const URL = "https://api-cdp-staging.edgee.io/api/v1/events";
