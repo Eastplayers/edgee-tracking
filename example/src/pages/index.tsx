@@ -1,3 +1,4 @@
+import { message } from "antd";
 import { useRouter } from "next/router";
 import { FC } from "react";
 import EdgeeTracking from "../../../lib";
@@ -9,15 +10,16 @@ const Home: FC = () => {
   return (
     <div>
       <button className={styles.button} onClick={() => router.push("/about")}>
-        Click me
+        Click to navigate to About
       </button>
       <button
         className={styles.button}
         onClick={() => {
           EdgeeTracking.logEvent("ABANDONED_CART_CREATE");
+          message.success("Event has been sent");
         }}
       >
-        Click to send cart event
+        Click to send ABANDONED_CART_CREATE event
       </button>
     </div>
   );
