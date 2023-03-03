@@ -1,6 +1,6 @@
 {
   "name": "edgee-tracking",
-  "version": "1.0.14",
+  "version": "1.0.18",
   "description": "Edgee Tracking Tool",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

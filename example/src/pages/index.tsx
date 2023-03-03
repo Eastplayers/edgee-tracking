@@ -25,6 +25,16 @@ const Home: FC = () => {
       >
         Click to send ABANDONED_CART_CREATE event
       </button>
+      
+       <button
+        className={styles.button}
+        onClick={() => {
+          EdgeeTracking.logEvent("SHOW_DEMO_POPUP");
+          message.success("Event has been sent");
+        }}
+      >
+        Click to send SHOW_DEMO_POPUP event
+      </button>
 
       <div style={{ width: "90%", maxWidth: 1200, margin: "40px auto" }}>
         <div id="RECOMMENDED_PRODUCT"></div>
