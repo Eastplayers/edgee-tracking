@@ -26,6 +26,16 @@ const Home: FC = () => {
         Click to send ABANDONED_CART_CREATE event
       </button>
 
+      <button
+        className={styles.button}
+        onClick={() => {
+          EdgeeTracking.logEvent("SHOW_DEMO_POPUP");
+          message.success("Event has been sent");
+        }}
+      >
+        Click to send SHOW_DEMO_POPUP event
+      </button>
+
       <div id="product"></div>
     </div>
   );

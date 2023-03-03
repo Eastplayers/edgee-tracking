@@ -5,7 +5,7 @@ export default function Document() {
     <Html lang="en">
       <Head />
       <link
-        href="https://unpkg.com/edgee-tracking@1.0.14/lib/bundle.css"
+        href="https://unpkg.com/edgee-tracking@1.0.18/lib/bundle.css"
         rel="stylesheet"
         type="text/css"
       />

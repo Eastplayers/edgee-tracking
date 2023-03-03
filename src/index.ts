@@ -103,41 +103,75 @@ const init = () => {
       // @ts-ignore
       const socket = io(SOCKET_URL);
 
-      socket.on("ABANDONED_CART_CREATE", (data: any) => {
-        console.log("ABANDONED_CART_CREATE", data.content);
-        const toastContainer = document.createElement("div");
-        toastContainer.setAttribute(
-          "style",
-          "display: flex; flex-direction: column; gap: 8px; align-items: flex-end"
-        );
-        const toastContent = document.createElement("div");
-        toastContent.setAttribute(
-          "style",
-          "font-size: 20px; font-family: Arial; line-height: 28px"
-        );
-        toastContent.innerHTML = data.content;
-        const copyButton = document.createElement("button");
-        copyButton.setAttribute("style", "padding: 6px 16px; font-size: 20px");
-        copyButton.innerHTML = "Copy promotion";
-        toastContainer.appendChild(toastContent);
-        toastContainer.appendChild(copyButton);
-        // @ts-ignore
-        Toastify({
-          node: toastContainer,
-          duration: -1,
-          // destination: "https://github.com/apvarun/toastify-js",
-          // newWindow: true,
-          close: true,
-          gravity: "bottom",
-          position: "left",
-          stopOnFocus: true, // Prevents dismissing of toast on hover
-          style: {
-            background: "white",
-            color: "black",
-            "max-width": "400px",
-          },
-          onClick: function () {}, // Callback after click
-        }).showToast();
+      const modalContainer = document.createElement("div");
+      modalContainer.id = "open-modal";
+      modalContainer.className = "modal-window";
+      const modalContentContainer = document.createElement("div");
+      const closeButton = document.createElement("a");
+      closeButton.innerHTML = "Close";
+      closeButton.className = "modal-close";
+      closeButton.onclick = (e) => {
+        const target = document.getElementById("open-modal");
+        target?.classList.remove("open");
+      };
+
+      modalContentContainer.appendChild(closeButton);
+      modalContainer.appendChild(modalContentContainer);
+
+      document.body.appendChild(modalContainer);
+
+      socket.on("ACTION_WEB", (data: any) => {
+        console.log("ACTION_WEB", data.content);
+        switch (data.event_code) {
+          case "ABANDONED_CART_CREATE": {
+            const toastContainer = document.createElement("div");
+            toastContainer.setAttribute(
+              "style",
+              "display: flex; flex-direction: column; gap: 8px; align-items: flex-end"
+            );
+            const toastContent = document.createElement("div");
+            toastContent.setAttribute(
+              "style",
+              "font-size: 20px; font-family: Arial; line-height: 28px"
+            );
+            toastContent.innerHTML = data.content;
+            const copyButton = document.createElement("button");
+            copyButton.setAttribute(
+              "style",
+              "padding: 6px 16px; font-size: 20px"
+            );
+            copyButton.innerHTML = "Copy promotion";
+            toastContainer.appendChild(toastContent);
+            toastContainer.appendChild(copyButton);
+            // @ts-ignore
+            Toastify({
+              node: toastContainer,
+              duration: -1,
+              // destination: "https://github.com/apvarun/toastify-js",
+              // newWindow: true,
+              close: true,
+              gravity: "bottom",
+              position: "left",
+              stopOnFocus: true, // Prevents dismissing of toast on hover
+              style: {
+                background: "white",
+                color: "black",
+                "max-width": "400px",
+              },
+              onClick: function () {}, // Callback after click
+            }).showToast();
+            break;
+          }
+          case "SHOW_DEMO_POPUP": {
+            const modal = document.getElementById("open-modal");
+            const img = document.createElement("img");
+            img.src = data.content;
+            img.width = 500;
+            modal?.firstChild?.appendChild(img);
+            modal?.classList.add("open");
+            break;
+          }
+        }
       });
     };
 
