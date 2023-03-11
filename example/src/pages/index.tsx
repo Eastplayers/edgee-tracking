@@ -1,6 +1,6 @@
 import { message } from "antd";
 import { useRouter } from "next/router";
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import EdgeeTracking from "../../../lib";
 import styles from "../styles/Home.module.css";
 
@@ -25,8 +25,8 @@ const Home: FC = () => {
       >
         Click to send ABANDONED_CART_CREATE event
       </button>
-      
-       <button
+
+      <button
         className={styles.button}
         onClick={() => {
           EdgeeTracking.logEvent("SHOW_DEMO_POPUP");

@@ -18,7 +18,7 @@ const getCookie = (name: string) => {
   if (parts.length === 2) return parts?.pop?.()?.split(";").shift();
 };
 
-const sendEvent = (eventName = "page_view", eventPayload?: any) => {
+const sendEvent = (eventName = "VIEW_PAGE", eventPayload?: any) => {
   if (typeof window !== "undefined") {
     const deviceData = deviceDetect(undefined);
     let id = getCookie("id");
@@ -166,10 +166,14 @@ const init = () => {
           }
           case "SHOW_DEMO_POPUP": {
             const modal = document.getElementById("open-modal");
+            const imgContainer = document.createElement("a");
+            imgContainer.href = data.url;
+            imgContainer.target = "_blank";
             const img = document.createElement("img");
             img.src = data.content;
             img.width = 500;
-            modal?.firstChild?.appendChild(img);
+            imgContainer.append(img);
+            modal?.firstChild?.appendChild(imgContainer);
             modal?.classList.add("open");
             break;
           }
@@ -208,10 +212,6 @@ const logEvent = (name: string, payload: Record<string, any> = {}) => {
 const renderRecommendedProducts = () => {
   const el = document.getElementById("RECOMMENDED_PRODUCT");
   const productWrapper = document.createElement("div");
-  const title = document.createElement("h3");
-  title.innerText = "Recommended Products";
-
-  el?.append(title);
 
   fetch(`${RECOMMEND_PRODUCTS_URL}?master_id=123`, {
     method: "GET",
@@ -221,7 +221,6 @@ const renderRecommendedProducts = () => {
   })
     .then((res) => res.json())
     .then((res) => {
-      console.log(res);
       res?.data?.forEach((product: any) => {
         const productEl = document.createElement("div");
         productEl.innerHTML = `
@@ -237,6 +236,10 @@ const renderRecommendedProducts = () => {
         productWrapper.className = "product-wrapper";
       });
 
+      const title = document.createElement("h3");
+      title.innerText = "Recommended Products";
+
+      el?.append(title);
       el?.append(productWrapper);
     });
 };
