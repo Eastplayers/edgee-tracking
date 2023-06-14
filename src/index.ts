@@ -42,6 +42,7 @@ const sendEvent = (eventName = "VIEW_PAGE", eventPayload?: any) => {
         geolocation: null,
         ad_blocked: true,
         origin: window.location.origin,
+        href: window.location.href,
         event_code: eventName,
         event_data: eventPayload,
       },
@@ -97,91 +98,91 @@ const init = () => {
     toastCss.type = "text/css";
     const toastScript = document.createElement("script");
     toastScript.src = "https://cdn.jsdelivr.net/npm/toastify-js";
-    const socketScript = document.createElement("script");
-    socketScript.src =
-      "https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js";
-
-    socketScript.onload = () => {
-      // @ts-ignore
-      const socket = io(SOCKET_URL);
-
-      const modalContainer = document.createElement("div");
-      modalContainer.id = "open-modal";
-      modalContainer.className = "modal-window";
-      const modalContentContainer = document.createElement("div");
-      const closeButton = document.createElement("a");
-      closeButton.innerHTML = "Close";
-      closeButton.className = "modal-close";
-      closeButton.onclick = (e) => {
-        const target = document.getElementById("open-modal");
-        target?.classList.remove("open");
-      };
-
-      modalContentContainer.appendChild(closeButton);
-      modalContainer.appendChild(modalContentContainer);
-
-      document.body.appendChild(modalContainer);
-
-      socket.on("ACTION_WEB", (data: any) => {
-        console.log("ACTION_WEB", data.content);
-        switch (data.event_code) {
-          case "ABANDONED_CART_CREATE": {
-            const toastContainer = document.createElement("div");
-            toastContainer.setAttribute(
-              "style",
-              "display: flex; flex-direction: column; gap: 8px; align-items: flex-end"
-            );
-            const toastContent = document.createElement("div");
-            toastContent.setAttribute(
-              "style",
-              "font-size: 20px; font-family: Arial; line-height: 28px"
-            );
-            toastContent.innerHTML = data.content;
-            const copyButton = document.createElement("button");
-            copyButton.setAttribute(
-              "style",
-              "padding: 6px 16px; font-size: 20px"
-            );
-            copyButton.innerHTML = "Copy promotion";
-            toastContainer.appendChild(toastContent);
-            toastContainer.appendChild(copyButton);
-            // @ts-ignore
-            Toastify({
-              node: toastContainer,
-              duration: -1,
-              // destination: "https://github.com/apvarun/toastify-js",
-              // newWindow: true,
-              close: true,
-              gravity: "bottom",
-              position: "left",
-              stopOnFocus: true, // Prevents dismissing of toast on hover
-              style: {
-                background: "white",
-                color: "black",
-                "max-width": "400px",
-              },
-              onClick: function () {}, // Callback after click
-            }).showToast();
-            break;
-          }
-          case "SHOW_DEMO_POPUP": {
-            const modal = document.getElementById("open-modal");
-            const imgContainer = document.createElement("a");
-            imgContainer.href = data.url;
-            imgContainer.target = "_blank";
-            const img = document.createElement("img");
-            img.src = data.content;
-            img.width = 500;
-            imgContainer.append(img);
-            modal?.firstChild?.appendChild(imgContainer);
-            modal?.classList.add("open");
-            break;
-          }
-        }
-      });
-    };
-
-    document.body.appendChild(socketScript);
+    // const socketScript = document.createElement("script");
+    // socketScript.src =
+    //   "https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js";
+    //
+    // socketScript.onload = () => {
+    //   // @ts-ignore
+    //   const socket = io(SOCKET_URL);
+    //
+    //   const modalContainer = document.createElement("div");
+    //   modalContainer.id = "open-modal";
+    //   modalContainer.className = "modal-window";
+    //   const modalContentContainer = document.createElement("div");
+    //   const closeButton = document.createElement("a");
+    //   closeButton.innerHTML = "Close";
+    //   closeButton.className = "modal-close";
+    //   closeButton.onclick = (e) => {
+    //     const target = document.getElementById("open-modal");
+    //     target?.classList.remove("open");
+    //   };
+    //
+    //   modalContentContainer.appendChild(closeButton);
+    //   modalContainer.appendChild(modalContentContainer);
+    //
+    //   document.body.appendChild(modalContainer);
+    //
+    //   socket.on("ACTION_WEB", (data: any) => {
+    //     console.log("ACTION_WEB", data.content);
+    //     switch (data.event_code) {
+    //       case "ABANDONED_CART_CREATE": {
+    //         const toastContainer = document.createElement("div");
+    //         toastContainer.setAttribute(
+    //           "style",
+    //           "display: flex; flex-direction: column; gap: 8px; align-items: flex-end"
+    //         );
+    //         const toastContent = document.createElement("div");
+    //         toastContent.setAttribute(
+    //           "style",
+    //           "font-size: 20px; font-family: Arial; line-height: 28px"
+    //         );
+    //         toastContent.innerHTML = data.content;
+    //         const copyButton = document.createElement("button");
+    //         copyButton.setAttribute(
+    //           "style",
+    //           "padding: 6px 16px; font-size: 20px"
+    //         );
+    //         copyButton.innerHTML = "Copy promotion";
+    //         toastContainer.appendChild(toastContent);
+    //         toastContainer.appendChild(copyButton);
+    //         // @ts-ignore
+    //         Toastify({
+    //           node: toastContainer,
+    //           duration: -1,
+    //           // destination: "https://github.com/apvarun/toastify-js",
+    //           // newWindow: true,
+    //           close: true,
+    //           gravity: "bottom",
+    //           position: "left",
+    //           stopOnFocus: true, // Prevents dismissing of toast on hover
+    //           style: {
+    //             background: "white",
+    //             color: "black",
+    //             "max-width": "400px",
+    //           },
+    //           onClick: function () {}, // Callback after click
+    //         }).showToast();
+    //         break;
+    //       }
+    //       case "SHOW_DEMO_POPUP": {
+    //         const modal = document.getElementById("open-modal");
+    //         const imgContainer = document.createElement("a");
+    //         imgContainer.href = data.url;
+    //         imgContainer.target = "_blank";
+    //         const img = document.createElement("img");
+    //         img.src = data.content;
+    //         img.width = 500;
+    //         imgContainer.append(img);
+    //         modal?.firstChild?.appendChild(imgContainer);
+    //         modal?.classList.add("open");
+    //         break;
+    //       }
+    //     }
+    //   });
+    // };
+    //
+    // document.body.appendChild(socketScript);
     document.body.appendChild(toastScript);
     document.head.appendChild(toastCss);
 
