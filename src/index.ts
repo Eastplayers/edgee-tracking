@@ -3,7 +3,8 @@ import "./styles.css";
 
 const SOCKET_URL = "https://api-cdp-staging.edgee.io";
 const URL = "https://api-cdp-staging.edgee.io/api/v1/events";
-const LOCATION_URL = "https://geolocation-db.com/json";
+// const LOCATION_URL = "https://geolocation-db.com/json";
+const LOCATION_URL = "https://api.geoapify.com/v1/ipinfo?&apiKey=4dd623eec72e4512906d4bd54fb277d9";
 const RECOMMEND_PRODUCTS_URL =
   "https://api-cdp-staging.edgee.io/api/v1/items/recommend-products";
 
@@ -55,13 +56,13 @@ const sendEvent = (eventName = "VIEW_PAGE", eventPayload?: any) => {
         accept: "application/json",
       },
     })
-      .then((res) => res.json())
-      .then(({ IPv4, ...rest }) => {
+    .then((res) => res.json())
+    .then(({ ip, ...rest }) => {
         const newData = {
           ...data,
           payload: {
             ...data.payload,
-            ip: IPv4,
+            ip,
             geolocation: rest,
             ad_blocked: false,
           },
