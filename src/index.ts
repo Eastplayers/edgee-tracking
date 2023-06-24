@@ -93,13 +93,13 @@ const sendEvent = (eventName = "VIEW_PAGE", eventPayload?: any) => {
 
 const init = () => {
   if (typeof window !== "undefined") {
-    const toastCss = document.createElement("link");
-    toastCss.href =
-      "https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css";
-    toastCss.rel = "stylesheet";
-    toastCss.type = "text/css";
-    const toastScript = document.createElement("script");
-    toastScript.src = "https://cdn.jsdelivr.net/npm/toastify-js";
+    // const toastCss = document.createElement("link");
+    // toastCss.href =
+    //   "https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css";
+    // toastCss.rel = "stylesheet";
+    // toastCss.type = "text/css";
+    // const toastScript = document.createElement("script");
+    // toastScript.src = "https://cdn.jsdelivr.net/npm/toastify-js";
     // const socketScript = document.createElement("script");
     // socketScript.src =
     //   "https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js";
@@ -185,8 +185,8 @@ const init = () => {
     // };
     //
     // document.body.appendChild(socketScript);
-    document.body.appendChild(toastScript);
-    document.head.appendChild(toastCss);
+    // document.body.appendChild(toastScript);
+    // document.head.appendChild(toastCss);
 
     sendEvent();
 
