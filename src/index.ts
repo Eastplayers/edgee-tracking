@@ -20,7 +20,7 @@ const getCookie = (name: string) => {
   if (parts.length === 2) return parts?.pop?.()?.split(";").shift();
 };
 
-const sendEvent = (eventName = "VIEW_PAGE", eventPayload?: any) => {
+const sendEvent = (eventName = "WEB_VIEW_PAGE", eventPayload?: any) => {
   if (typeof window !== "undefined") {
     const deviceData = deviceDetect(undefined);
     let id = getCookie("id");
