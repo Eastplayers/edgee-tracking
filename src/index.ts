@@ -20,6 +20,13 @@ const getCookie = (name: string) => {
   if (parts.length === 2) return parts?.pop?.()?.split(";").shift();
 };
 
+const capitalize = (txt: string) => {
+  console.log(txt);
+
+  return txt.charAt(0).toUpperCase() + txt.slice(1); //or if you want lowercase the rest txt.slice(1).toLowerCase();
+}
+
+
 const sendEvent = (eventName = "WEB_VIEW_PAGE", eventPayload?: any) => {
   if (typeof window !== "undefined") {
     const deviceData = deviceDetect(undefined);
@@ -59,24 +66,27 @@ const sendEvent = (eventName = "WEB_VIEW_PAGE", eventPayload?: any) => {
     })
       .then((res) => res.json())
       .then(({ ip, ...rest }) => {
-        const newData = {
-          ...data,
-          payload: {
-            ...data.payload,
-            ip,
-            geolocation: rest,
-            ad_blocked: false,
-          },
-        };
-
-        fetch(URL, {
-          method: "POST",
-          headers: {
-            accept: "application/json",
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(newData),
-        });
+        if (ip == null) {
+            getUserLocationByGeolocationAPI(data);
+        } else {
+            const newData = {
+              ...data,
+              payload: {
+                ...data.payload,
+                ip,
+                geolocation: rest,
+                ad_blocked: false,
+              },
+            };
+            fetch(URL, {
+              method: "POST",
+              headers: {
+                accept: "application/json",
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(newData),
+            });
+        }
       })
       .catch((err) => {
         fetch(URL, {
@@ -246,6 +256,48 @@ const renderRecommendedProducts = () => {
       el?.append(productWrapper);
     });
 };
+
+const getUserLocationByGeolocationAPI = (data: any) => {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${position.coords.latitude}&longitude=${position.coords.longitude}`, {
+              method: "GET",
+              headers: {
+                accept: "application/json",
+              },
+          })
+          .then((res) => res.json())
+          .then(({ city, countryName, countryCode }) => {
+              const newData = {
+                ...data,
+                payload: {
+                  ...data.payload,
+                  geolocation: {
+                      city: {
+                          name: city
+                      },
+                      country: {
+                          iso_code: countryCode,
+                          name: countryName
+                          // name: capitalize(countryName.replace(/ +/g, "").toLowerCase())
+                      }
+                  },
+                  ad_blocked: false,
+                },
+              };
+
+              fetch(URL, {
+                method: "POST",
+                headers: {
+                  accept: "application/json",
+                  "content-type": "application/json",
+                },
+                body: JSON.stringify(newData),
+              });
+          })
+        })
+    }
+}
 
 const EdgeeTracking = {
   init,
