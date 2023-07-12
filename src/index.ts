@@ -38,7 +38,7 @@ const sendEvent = (eventName = "WEB_VIEW_PAGE", eventPayload?: any) => {
     }
 
     const data = {
-      source: "WEB",
+      source: eventPayload?.source ? eventPayload.source : "WEB",
       payload: {
         id,
         browser: browserName,
